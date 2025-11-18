@@ -21,14 +21,16 @@ All data is provided in JSON — no parsing required.
 ---
 
 ## Objective
-Build an **AI agent** that can:
+Build a **stateful AI agent** that can engage in conversations, answer questions, and perform actions. The agent should:
 
 1. **Investigate** anomalies between billing plans and invoices  
 2. **Propose** corrective actions (make-good invoice, credit memo, or plan amendment)  
 3. **Apply** those actions to a writable **sandbox** with human approval  
 4. **Explain** what it did and why, citing evidence or calculations  
+5. **Answer questions** about billing plans, invoices, and revenue leakage issues
+6. **Maintain context** across the conversation to enable follow-up questions and iterative investigation
 
-The agent should **decide what to do**, not just execute a fixed pipeline.
+The agent should be **conversational and stateful**, not a fixed workflow or pipeline. It should be able to have natural dialogues with users, remember previous interactions, and adapt its approach based on the conversation flow.
 
 ---
 
@@ -58,9 +60,9 @@ The agent should **decide what to do**, not just execute a fixed pipeline.
 ---
 
 ## UI Requirements
-- Simple dashboard + chat (NextJS / React / Streamlit / ...)
-- Input selector for mission & parameters
-- Output tables: Findings, Proposals (with "Apply" buttons)
+- **Chat interface only** (NextJS / React / Streamlit / ...)
+- Users interact with the agent through natural conversation
+- The agent can display findings, proposals, and request approval for actions within the chat
 - Optional: reasoning trace & audit-log viewer (sandbox/audit_log.json)
 
 ---
