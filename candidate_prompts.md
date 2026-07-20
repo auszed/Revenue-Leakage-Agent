@@ -26,6 +26,13 @@ Tool used: **Claude Code (Opus 4.8)**. Commands run during the build, in order.
 | 13 | 9 | `POST /chat` rollback + `POST /approve` | Rollback -> ledger reversed to [] |
 | 14 | 9 | Set `MLFLOW_SERVER_ALLOWED_HOSTS=*` on mlflow service | Fix MLflow 3.x 403 "Invalid Host header" so traces are captured |
 
+### Frontend UX upgrade (later iteration)
+| # | Change | Command | Purpose |
+|---|--------|---------|---------|
+| 15 | UI | new `RecordCard` / `ToolTrace` / `ProposalCard`; edit `Chat`/`ApprovalCard`/`globals.css` | Pretty cards instead of JSON, all tools on by default, Accept button (two-step) |
+| 16 | UI | `npm run build` (frontend) | Type-check the new components |
+| 17 | UI | `docker compose up -d --build frontend` | Ship updated UI to the running stack |
+
 ### Verification results
 - 3 containers up (frontend :3000, agent :8000, mlflow :5000).
 - Anomaly detection: C-1001 missing September ($8k), C-1010 annual $120k vs $100k.

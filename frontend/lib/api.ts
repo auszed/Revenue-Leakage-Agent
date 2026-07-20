@@ -2,6 +2,22 @@
 
 export type ToolInfo = { name: string; description: string; default_enabled: boolean };
 export type TraceItem = { type: "call" | "result"; tool: string; args?: unknown; output?: string };
+
+// A proposed or applied corrective action (draft has draft_id; applied record has an id + applied_at).
+export type Draft = {
+  draft_id?: string;
+  action_type: string;
+  plan_id?: string;
+  invoice_id?: string;
+  memo_id?: string;
+  amendment_id?: string;
+  customer_name?: string;
+  amount?: number;
+  currency?: string;
+  reason?: string;
+  change_set?: Record<string, unknown>;
+  applied_at?: string;
+};
 export type ChatResponse = {
   reply: string;
   tool_trace: TraceItem[];

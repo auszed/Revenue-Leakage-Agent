@@ -1,5 +1,8 @@
 "use client";
 
+import type { Draft } from "@/lib/api";
+import RecordCard from "./RecordCard";
+
 export default function ApprovalCard({
   approval,
   onDecision,
@@ -10,11 +13,15 @@ export default function ApprovalCard({
   busy: boolean;
 }) {
   const op = approval?.operation ?? "action";
-  const detail = approval?.action ?? approval?.action_id ?? approval;
+  const action = approval?.action as Draft | undefined;
   return (
     <div className="approval">
       <strong>Approval required: {op}</strong>
-      <pre>{JSON.stringify(detail, null, 2)}</pre>
+      {action ? (
+        <RecordCard record={action} />
+      ) : (
+        <p className="record-reason">Roll back action {approval?.action_id}</p>
+      )}
       <div className="approval-actions">
         <button disabled={busy} onClick={() => onDecision(true)} className="approve">
           Approve
