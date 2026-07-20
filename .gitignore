@@ -1,2 +1,22 @@
 # Ignore prompts file
 prompts.md
+
+# Secrets
+.env
+.env.local
+
+# Writable sandbox ledgers (runtime output)
+sandbox/*.json
+
+# Python / uv
+agent/.venv/
+__pycache__/
+*.pyc
+
+# Node / Next.js
+frontend/node_modules/
+frontend/.next/
+
+# MLflow
+mlruns/
+mlflow.db

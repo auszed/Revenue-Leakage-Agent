@@ -1,0 +1,173 @@
+ Image technical-case-agent Building 
+ Image technical-case-frontend Building 
+ Image technical-case-mlflow Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 1.67kB done
+#1 DONE 0.0s
+
+#2 [mlflow internal] load build definition from Dockerfile
+#2 transferring dockerfile: 513B done
+#2 DONE 0.1s
+
+#3 [frontend internal] load build definition from Dockerfile
+#3 transferring dockerfile: 186B 0.0s done
+#3 DONE 0.1s
+
+#4 [agent internal] load metadata for docker.io/library/python:3.12-slim
+#4 DONE 0.9s
+
+#5 [agent internal] load metadata for ghcr.io/astral-sh/uv:latest
+#5 DONE 0.8s
+
+#6 [mlflow internal] load .dockerignore
+#6 transferring context:
+#6 transferring context: 88B 0.0s done
+#6 DONE 0.1s
+
+#7 [frontend internal] load metadata for docker.io/library/node:22-alpine
+#7 DONE 1.0s
+
+#8 [frontend internal] load .dockerignore
+#8 transferring context: 75B done
+#8 DONE 0.1s
+
+#9 [frontend internal] load build context
+#9 DONE 0.0s
+
+#10 [mlflow internal] load build context
+#10 transferring context: 661B 0.0s done
+#10 DONE 0.1s
+
+#11 [mlflow] FROM ghcr.io/astral-sh/uv:latest@sha256:93b61e21202b1dab861092748e46bbd6e0e41dd84f59b9174efd2353186e1b47
+#11 resolve ghcr.io/astral-sh/uv:latest@sha256:93b61e21202b1dab861092748e46bbd6e0e41dd84f59b9174efd2353186e1b47
+#11 ...
+
+#10 [agent internal] load build context
+#10 DONE 0.1s
+
+#11 [mlflow] FROM ghcr.io/astral-sh/uv:latest@sha256:93b61e21202b1dab861092748e46bbd6e0e41dd84f59b9174efd2353186e1b47
+#11 resolve ghcr.io/astral-sh/uv:latest@sha256:93b61e21202b1dab861092748e46bbd6e0e41dd84f59b9174efd2353186e1b47 0.2s done
+#11 resolve ghcr.io/astral-sh/uv:latest@sha256:93b61e21202b1dab861092748e46bbd6e0e41dd84f59b9174efd2353186e1b47 0.2s done
+#11 DONE 0.3s
+
+#12 [agent stage-0 1/6] FROM docker.io/library/python:3.12-slim@sha256:57cd7c3a7a273101a6485ba99423ee568157882804b1124b4dd04266317710de
+#12 resolve docker.io/library/python:3.12-slim@sha256:57cd7c3a7a273101a6485ba99423ee568157882804b1124b4dd04266317710de 0.2s done
+#12 DONE 0.3s
+
+#13 [agent stage-0 2/6] COPY --from=ghcr.io/astral-sh/uv:latest /uv /bin/uv
+#13 CACHED
+
+#14 [agent stage-0 5/6] RUN uv sync --frozen --no-dev --no-install-project
+#14 CACHED
+
+#15 [agent stage-0 3/6] WORKDIR /app
+#15 CACHED
+
+#16 [agent stage-0 4/6] COPY pyproject.toml uv.lock ./
+#16 CACHED
+
+#17 [agent stage-0 6/6] COPY app ./app
+#17 CACHED
+
+#18 [frontend 1/6] FROM docker.io/library/node:22-alpine@sha256:16e22a550f3863206a3f701448c45f7912c6896a62de43add43bb9c86130c3e2
+#18 resolve docker.io/library/node:22-alpine@sha256:16e22a550f3863206a3f701448c45f7912c6896a62de43add43bb9c86130c3e2 0.2s done
+#18 DONE 0.2s
+
+#9 [frontend internal] load build context
+#9 transferring context: 724B 0.0s done
+#9 DONE 0.1s
+
+#19 [mlflow] exporting to image
+#19 exporting layers done
+#19 exporting manifest sha256:603bd74e3e8af716a47b31d7aade4abbaabbfcf55216477227deb1b4d4a015fd
+#19 ...
+
+#20 [frontend 3/6] COPY package.json package-lock.json ./
+#20 CACHED
+
+#21 [frontend 2/6] WORKDIR /app
+#21 CACHED
+
+#22 [frontend 4/6] RUN npm ci
+#22 CACHED
+
+#23 [frontend 5/6] COPY . .
+#23 CACHED
+
+#24 [frontend 6/6] RUN npm run build
+#24 CACHED
+
+#25 [frontend] exporting to image
+#25 exporting layers done
+#25 exporting manifest sha256:95d4ca187bcd766367c581491c159404092ec7cb92203d6cddb0ff3cb8e71d0a 0.1s done
+#25 exporting config sha256:8af4b34e19d4eda2b39e02d6b33a44bb877b10ab6d1cb34078d802604b2827e0
+#25 exporting config sha256:8af4b34e19d4eda2b39e02d6b33a44bb877b10ab6d1cb34078d802604b2827e0 0.1s done
+#25 exporting attestation manifest sha256:56a53062a663c6a8f8ef3dbcb493c5d31bc7da1454b88239722cc275b6d77dfe
+#25 exporting attestation manifest sha256:56a53062a663c6a8f8ef3dbcb493c5d31bc7da1454b88239722cc275b6d77dfe 0.6s done
+#25 exporting manifest list sha256:5bf5fbddc8456aa517ce96c90dd2753547423d63767d38b12f934988b442c575
+#25 exporting manifest list sha256:5bf5fbddc8456aa517ce96c90dd2753547423d63767d38b12f934988b442c575 0.3s done
+#25 naming to docker.io/library/technical-case-frontend:latest 0.1s done
+#25 unpacking to docker.io/library/technical-case-frontend:latest
+#25 ...
+
+#26 [agent] exporting to image
+#26 exporting layers done
+#26 exporting manifest sha256:1933d5d9d23a680a6e0bf85e1206e8692567029d139c63343b6f48bd046173ec 0.2s done
+#26 exporting config sha256:c2a40496f2e0dd7791f3e9be875757d1241c2484b0a3e3b0e2592890caa06b92 0.2s done
+#26 exporting attestation manifest sha256:9765b5c4eb3e2a1645114061f1ab3015f91675c61b6ae65396ddef41cbfcd499 0.5s done
+#26 exporting manifest list sha256:ac46cfca5c34db39484ff29cc4065d1143db86f88c7f8b22b28489951f1b71c2 0.3s done
+#26 naming to docker.io/library/technical-case-agent:latest 0.1s done
+#26 unpacking to docker.io/library/technical-case-agent:latest
+#26 ...
+
+#19 [mlflow] exporting to image
+#19 exporting manifest sha256:603bd74e3e8af716a47b31d7aade4abbaabbfcf55216477227deb1b4d4a015fd 0.3s done
+#19 exporting config sha256:03d62de422dbb260c52ceb6b1fdba3291abc4ec07fd4828df81ab413490c97fb 0.3s done
+#19 exporting attestation manifest sha256:e8b3ae18acab66b8d8f5576f901d53e5a5a90815a7cd9bb8b66c1fc0c248a39c 0.6s done
+#19 exporting manifest list sha256:a57195fb1efd6975c0dd2c9b3ef393b853ca006647f7652333bc5c0d7afd7289 0.2s done
+#19 naming to docker.io/library/technical-case-mlflow:latest 0.0s done
+#19 unpacking to docker.io/library/technical-case-mlflow:latest
+#19 ...
+
+#25 [frontend] exporting to image
+#25 unpacking to docker.io/library/technical-case-frontend:latest 47.7s done
+#25 DONE 49.2s
+
+#26 [agent] exporting to image
+#26 ...
+
+#27 [frontend] resolving provenance for metadata file
+#27 DONE 6.0s
+
+#19 [mlflow] exporting to image
+#19 unpacking to docker.io/library/technical-case-mlflow:latest 158.8s done
+#19 DONE 160.4s
+
+#26 [agent] exporting to image
+#26 unpacking to docker.io/library/technical-case-agent:latest 159.3s done
+#26 DONE 160.8s
+
+#28 [mlflow] resolving provenance for metadata file
+#28 DONE 0.0s
+
+#29 [agent] resolving provenance for metadata file
+#29 DONE 0.0s
+ Image technical-case-mlflow Built 
+ Image technical-case-agent Built 
+ Image technical-case-frontend Built 
+ Network technical-case_revleak-net Creating 
+ Network technical-case_revleak-net Created 
+ Volume technical-case_mlflow-data Creating 
+ Volume technical-case_mlflow-data Created 
+ Container technical-case-mlflow-1 Creating 
+ Container technical-case-mlflow-1 Created 
+ Container technical-case-agent-1 Creating 
+ Container technical-case-agent-1 Created 
+ Container technical-case-frontend-1 Creating 
+ Container technical-case-frontend-1 Created 
+ Container technical-case-mlflow-1 Starting 
+ Container technical-case-mlflow-1 Started 
+ Container technical-case-agent-1 Starting 
+ Container technical-case-agent-1 Started 
+ Container technical-case-frontend-1 Starting 
+ Container technical-case-frontend-1 Started 

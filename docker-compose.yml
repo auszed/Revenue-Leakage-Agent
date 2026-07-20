@@ -1,0 +1,63 @@
+services:
+  mlflow:
+    build: ./agent
+    environment:
+      # Internal-only tracking server on the compose network; allow the "mlflow" host
+      # header (MLflow 3.x blocks unknown hosts as DNS-rebinding protection).
+      MLFLOW_SERVER_ALLOWED_HOSTS: "*"
+    command:
+      - uv
+      - run
+      - --no-dev
+      - --no-sync
+      - mlflow
+      - server
+      - --host
+      - 0.0.0.0
+      - --port
+      - "5000"
+      - --backend-store-uri
+      - sqlite:////app/mlflow/mlflow.db
+      - --artifacts-destination
+      - /app/mlflow/artifacts
+    ports:
+      - "5000:5000"
+    volumes:
+      - mlflow-data:/app/mlflow
+    networks:
+      - revleak-net
+
+  agent:
+    build: ./agent
+    ports:
+      - "8000:8000"
+    environment:
+      OPENAI_API_KEY: ${OPENAI_API_KEY}
+      OPENAI_MODEL: ${OPENAI_MODEL:-gpt-5.4-mini}
+      MLFLOW_TRACKING_URI: http://mlflow:5000
+      DATA_DIR: /app/data
+      SANDBOX_DIR: /app/sandbox
+    volumes:
+      - ./data:/app/data:ro
+      - ./sandbox:/app/sandbox
+    depends_on:
+      - mlflow
+    networks:
+      - revleak-net
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    environment:
+      AGENT_URL: http://agent:8000
+    depends_on:
+      - agent
+    networks:
+      - revleak-net
+
+networks:
+  revleak-net:
+
+volumes:
+  mlflow-data:
